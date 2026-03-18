@@ -705,7 +705,6 @@ public class Ventana extends JFrame {
 				g2d.fillRect(551, 140, 80, 100);
 				
 				
-				
 				// techo
 				int xTecho[] = { 250, 370, 740 };
 				int yTecho[] = { 260, 80, 260 };
