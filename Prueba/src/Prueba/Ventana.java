@@ -11,6 +11,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +42,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class Ventana extends JFrame {
 
@@ -91,12 +94,12 @@ public class Ventana extends JFrame {
 		menu2.add(opt5_mi);
 
 		// this.login();
-		// this.registro();
+		this.registro();
 		// this.users();
 		// this.calculadora();
 		// this.interes();
 		// this.paint();
-		this.draw();
+		// this.draw();
 
 		this.setVisible(true);
 		this.repaint();
@@ -105,7 +108,7 @@ public class Ventana extends JFrame {
 	public void login() {
 
 		JPanel login_container = new JPanel() {
-			private Image fondo = new ImageIcon(getClass().getResource("/images/login.png")).getImage();
+			private Image fondo = new ImageIcon(getClass().getResource("/images/jeje.jpg")).getImage();
 
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -171,6 +174,11 @@ public class Ventana extends JFrame {
 		rememberme.setOpaque(false);
 		login_container.add(rememberme);
 
+		JPasswordField password = new JPasswordField();
+		password.setSize(280, 40);
+		password.setLocation(60, 250);
+		login_container.add(password);
+
 		JButton acces_btn = new JButton();
 		acces_btn.setText("Acceder");
 		acces_btn.setSize(200, 40);
@@ -178,10 +186,31 @@ public class Ventana extends JFrame {
 		acces_btn.setFont(new Font("Arial", Font.ITALIC, 18));
 		login_container.add(acces_btn);
 
-		JPasswordField password = new JPasswordField();
-		password.setSize(280, 40);
-		password.setLocation(60, 250);
-		login_container.add(password);
+		acces_btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				String email = email_input.getText();
+				String pass = password.getText();
+
+				if (email.equals("")) {
+					System.out.println("vacio");
+
+					email_input.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					email_input.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+
+				if (pass.equals("")) {
+					System.out.println("vacio");
+					password.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					password.setBorder(BorderFactory.createLineBorder(Color.green, 3));
+				}
+			}
+
+		});
+
 	}
 
 	public void registro() {
@@ -192,10 +221,6 @@ public class Ventana extends JFrame {
 		rgs_container.setBackground(Color.decode("#5836C7"));
 		rgs_container.setLayout(null);
 		this.add(rgs_container);
-
-		// TITULO
-
-		// LABEL NAME
 
 		JLabel user_name = new JLabel("Nombre de usuario");
 		user_name.setBounds(50, 50, 250, 120);
@@ -241,20 +266,20 @@ public class Ventana extends JFrame {
 
 		JCheckBox opt_sweet = new JCheckBox("Dulce");
 		opt_sweet.setBounds(50, 320, 100, 40);
-		opt_sweet.setForeground(Color.white);
-		opt_sweet.setOpaque(false);
+		opt_sweet.setForeground(Color.black);
+		opt_sweet.setOpaque(true);
 		rgs_container.add(opt_sweet);
 
 		JCheckBox opt_salty = new JCheckBox("Salado");
 		opt_salty.setBounds(150, 320, 100, 40);
-		opt_salty.setForeground(Color.white);
-		opt_salty.setOpaque(false);
+		opt_salty.setForeground(Color.black);
+		opt_salty.setOpaque(true);
 		rgs_container.add(opt_salty);
 
 		JCheckBox opt_healty = new JCheckBox("Saludable");
 		opt_healty.setBounds(250, 320, 100, 40);
-		opt_healty.setForeground(Color.white);
-		opt_healty.setOpaque(false);
+		opt_healty.setForeground(Color.black);
+		opt_healty.setOpaque(true);
 		rgs_container.add(opt_healty);
 
 		// LABEL PREFERENCES
@@ -281,14 +306,15 @@ public class Ventana extends JFrame {
 
 		JRadioButton accept_terms = new JRadioButton("Acepto los terminos");
 		accept_terms.setBounds(50, 400, 180, 40);
-		accept_terms.setOpaque(false);
-		accept_terms.setForeground(Color.white);
+		accept_terms.setOpaque(true);
+		accept_terms.setForeground(Color.black);
+		accept_terms.setBorderPainted(true);
 		rgs_container.add(accept_terms);
 
 		JRadioButton reject_terms = new JRadioButton("Rechazo los terminos ");
-		reject_terms.setBounds(220, 400, 200, 40);
-		reject_terms.setOpaque(false);
-		reject_terms.setForeground(Color.white);
+		reject_terms.setBounds(250, 400, 200, 40);
+		reject_terms.setOpaque(true);
+		reject_terms.setForeground(Color.black);
 		rgs_container.add(reject_terms);
 
 		ButtonGroup terms = new ButtonGroup();
@@ -305,6 +331,39 @@ public class Ventana extends JFrame {
 		JButton register_btn = new JButton("Crear cuenta");
 		register_btn.setBounds(50, 500, 300, 60);
 		rgs_container.add(register_btn);
+
+		register_btn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String name = text_name.getText();
+				String BIO = text_Area.getText();
+				Boolean term = accept_terms.isSelected();
+				
+
+				if (name.equals("")) {
+					text_name.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					text_name.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+
+				if (BIO.equals("")) {
+					text_Area.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					text_Area.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+				
+				if (term == false) {
+					accept_terms.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+				} else {
+					accept_terms.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+				}
+
+		
+
+			}
+		});
 	}
 
 	public void users() {
@@ -603,29 +662,27 @@ public class Ventana extends JFrame {
 				super.paintComponent(g);
 
 				Graphics2D g2d = (Graphics2D) g;
-				
-				//fondo
+
+				// fondo
 				g2d.setColor(Color.decode("#79D6ED")); // azul cielo
 				g2d.fillRect(0, 0, getWidth(), getHeight());
-				
-				
-			 // cerca con postes y travesaños
-			    for (int x = 50; x <= 900; x += 60) {
-			        // poste rectangular
-			        g2d.setColor(Color.decode("#C19A6B")); 
-			        g2d.fillRect(x, 500, 40, 150);
 
-			        // punta del poste
-			        int[] xPunta = { x, x + 20, x + 40 };
-			        int[] yPunta = { 500, 460, 500 };
-			        g2d.setColor(Color.decode("#C19A6B")); 
-			        g2d.fillPolygon(xPunta, yPunta, 3);
-			    }
+				// cerca con postes y travesaños
+				for (int x = 50; x <= 900; x += 60) {
+					// poste rectangular
+					g2d.setColor(Color.decode("#C19A6B"));
+					g2d.fillRect(x, 500, 40, 150);
 
-			    // travesaños horizontales
-			    g2d.setColor(Color.decode("#695328"));
-			    g2d.fillRect(50, 630, 850, 50); 
-			     
+					// punta del poste
+					int[] xPunta = { x, x + 20, x + 40 };
+					int[] yPunta = { 500, 460, 500 };
+					g2d.setColor(Color.decode("#C19A6B"));
+					g2d.fillPolygon(xPunta, yPunta, 3);
+				}
+
+				// travesaños horizontales
+				g2d.setColor(Color.decode("#695328"));
+				g2d.fillRect(50, 630, 850, 50);
 
 				// cuadro de casa
 				g2d.setColor(Color.decode("#DBC07B"));
@@ -694,17 +751,14 @@ public class Ventana extends JFrame {
 				// perilla
 				g2d.setColor(Color.decode("#EBEBEB"));
 				g2d.fillOval(405, 460, 10, 10);
-				
 
-				//chimenea
+				// chimenea
 				g2d.setColor(Color.decode("#4F4D4D"));
 				g2d.fillRect(535, 100, 112, 40);
-				
-				
+
 				g2d.setColor(Color.decode("#878787"));
 				g2d.fillRect(551, 140, 80, 100);
-				
-				
+
 				// techo
 				int xTecho[] = { 250, 370, 740 };
 				int yTecho[] = { 260, 80, 260 };
