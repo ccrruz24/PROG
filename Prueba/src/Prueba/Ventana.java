@@ -93,8 +93,8 @@ public class Ventana extends JFrame {
 		JMenuItem opt5_mi = new JMenuItem("Guardar como");
 		menu2.add(opt5_mi);
 
-		// this.login();
-		this.registro();
+		this.login();
+		// this.registro();
 		// this.users();
 		// this.calculadora();
 		// this.interes();
@@ -194,23 +194,63 @@ public class Ventana extends JFrame {
 				String pass = password.getText();
 
 				if (email.equals("")) {
-					System.out.println("vacio");
+		            email_input.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "El campo usuario está vacío",
+		                "Error",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		            return; 
+		        } else {
+		            email_input.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+		        }
 
-					email_input.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-				} else {
-					email_input.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
-				}
+		        if (pass.equals("")) {
+		            password.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "El campo contraseña está vacío",
+		                "Error",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		            return;
+		        } else if (pass.length() < 8) {
+		            password.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "La contraseña debe tener al menos 8 caracteres",
+		                "Error",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		            return;
+		        } else {
+		            password.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+		        }
 
-				if (pass.equals("")) {
-					System.out.println("vacio");
-					password.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-				} else {
-					password.setBorder(BorderFactory.createLineBorder(Color.green, 3));
-				}
-			}
+		        // Datos correctos 
+		        String correo = "admin@alu.uabcs.mx";
+		        String contra = "12345678";
 
+		        if (email.equals(correo) && pass.equals(contra)) {
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "Bienvenido, " + email,
+		                "Acceso correcto",
+		                JOptionPane.INFORMATION_MESSAGE
+		            );
+		        } else {
+		            JOptionPane.showMessageDialog(
+		                login_container,
+		                "Usuario o contraseña incorrectos",
+		                "Error de acceso",
+		                JOptionPane.ERROR_MESSAGE
+		            );
+		        }
+		    }
 		});
 
+		
 	}
 
 	public void registro() {
@@ -340,7 +380,6 @@ public class Ventana extends JFrame {
 				String name = text_name.getText();
 				String BIO = text_Area.getText();
 				Boolean term = accept_terms.isSelected();
-				
 
 				if (name.equals("")) {
 					text_name.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
@@ -353,14 +392,12 @@ public class Ventana extends JFrame {
 				} else {
 					text_Area.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
 				}
-				
+
 				if (term == false) {
 					accept_terms.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
 				} else {
 					accept_terms.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
 				}
-
-		
 
 			}
 		});
